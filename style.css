@@ -1,0 +1,39 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3.5rem;
+    text-shadow: -4px -2px 2px red;
+}
+
+#start,#restart {
+    padding: 10px 15px;
+    font-size: 2rem;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    outline: none;
+    transition: .3s;
+}
+
+#start:hover,#restart:hover {
+    background-color: greenyellow;
+    color: black;
+}
+
+#restart {
+    display: none;
+}
