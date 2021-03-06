@@ -1,10 +1,6 @@
-const canvas_border_color       =   "black"
-const canvas_background_color   =   "white"
-const snake_color               =   "skyblue"
-const snake_border_color        =   "skyblue"
-const food_color                =   "green"
-const food_border_color         =   "#1abc9c"
-const speed                     =   50
+const canvas_background_color   =   "black"
+const snake_color               =   "yellowgreen"
+const food_color                =   "red"
 
 let velocity_x          = 10
 let velocity_y          = 0
@@ -12,6 +8,7 @@ let food_x              = Math.floor(Math.random() * 60) * 10
 let food_y              = Math.floor(Math.random() * 60) * 10
 let isChangingDirection = false
 let initSnakeLength     = 5
+let point               = 0
 
 let snake = [
     {x: 300, y: 300},
@@ -21,13 +18,16 @@ let snake = [
     {x: 260, y: 300}
 ]
 
-const canvas = document.getElementById("canvas")
-const canvas_ctx = canvas.getContext("2d")
+const canvas        = document.getElementById("canvas")
+const canvas_ctx    = canvas.getContext("2d")
 
-const startButton = document.getElementById("start")
+const startButton   = document.getElementById("start")
 const restartButton = document.getElementById("restart")
+const level         = document.getElementById("level")
+const scoreCard     = document.getElementById("text")
 
 startButton.addEventListener("click", () => {
+    level.disabled = true
     startGame()
 })
 
@@ -37,6 +37,7 @@ restartButton.addEventListener("click", () => {
     snake.splice(0, snake.length - initSnakeLength)
     snake[0].x  = 300
     snake[0].y  = 300
+    resetScore()
     startGame()
 }) 
 
@@ -48,11 +49,12 @@ drawFood()
 
 function startGame() {
 
-    startButton.style.display = "none"
-    restartButton.style.display = "none";
+    startButton.style.display   = "none"
+    restartButton.style.display = "none"
 
     if(isGameEnd()) {
         restartButton.style.display = "block"
+        level.disabled = false
         return
     }
 
@@ -60,6 +62,7 @@ function startGame() {
         food_x = Math.floor(Math.random() * 60) * 10
         food_y = Math.floor(Math.random() * 60) * 10
         addTail()
+        increaseScore()
     }
 
     
@@ -74,16 +77,14 @@ function startGame() {
         moveSnake()
         startGame()
 
-    },speed)
+    },level.value)
 
 }
 
 function clearCanvas() {
 
     canvas_ctx.fillStyle    = canvas_background_color
-    canvas_ctx.strokestyle  = canvas_border_color
     canvas_ctx.fillRect(0, 0, canvas.width, canvas.height)
-    canvas_ctx.strokeRect(0, 0, canvas.width, canvas.height)
 
 }
 
@@ -96,18 +97,14 @@ function drawSnake() {
 function drawSnakeBody(snake) {
 
     canvas_ctx.fillStyle    = snake_color
-    canvas_ctx.strokestyle  = snake_border_color
     canvas_ctx.fillRect(snake.x, snake.y, 10, 10)
-    canvas_ctx.strokeRect(snake.x, snake.y, 10, 10)
 
 }
 
 function drawFood() {
 
     canvas_ctx.fillStyle    = food_color
-    canvas_ctx.strokestyle  = food_border_color
     canvas_ctx.fillRect(food_x, food_y, 10, 10)
-    canvas_ctx.strokeRect(food_x, food_y, 10, 10)
 
 }
 
@@ -173,6 +170,20 @@ function addTail() {
     snake.push(`
     {x: ${snake[snake.length - 1].x + 10}, y: ${snake[snake.length - 1].y + 10}}
     `)
+}
+
+function increaseScore() {
+
+    point += 10
+    scoreCard.innerText = `Point : ${point}`
+
+}
+
+function resetScore() {
+
+    point = 0
+    scoreCard.innerText = `Point : ${point}`
+    
 }
 
 function isGameEnd() {
