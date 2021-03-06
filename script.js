@@ -11,7 +11,7 @@ let velocity_y          = 0
 let food_x              = Math.floor(Math.random() * 60) * 10
 let food_y              = Math.floor(Math.random() * 60) * 10
 let isChangingDirection = false
-let intiSnakeLength     = 5
+let initSnakeLength     = 5
 
 let snake = [
     {x: 300, y: 300},
@@ -36,7 +36,7 @@ restartButton.addEventListener("click", () => {
     snake[0].y  = 300
     food_x      = Math.floor(Math.random() * 60) * 10
     food_y      = Math.floor(Math.random() * 60) * 10
-    snake.splice(0, snake.length - intiSnakeLength)
+    snake.splice(0, snake.length - initSnakeLength)
     startGame()
 }) 
 
