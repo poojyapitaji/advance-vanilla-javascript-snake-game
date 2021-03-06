@@ -32,11 +32,11 @@ startButton.addEventListener("click", () => {
 })
 
 restartButton.addEventListener("click", () => {
-    snake[0].x  = 300
-    snake[0].y  = 300
     food_x      = Math.floor(Math.random() * 60) * 10
     food_y      = Math.floor(Math.random() * 60) * 10
     snake.splice(0, snake.length - initSnakeLength)
+    snake[0].x  = 300
+    snake[0].y  = 300
     startGame()
 }) 
 
