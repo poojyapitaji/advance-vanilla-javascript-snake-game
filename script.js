@@ -74,7 +74,6 @@ function startGame() {
         clearCanvas()
         drawSnake()
         drawFood()
-        foodEat()
         moveSnake()
         startGame()
 
